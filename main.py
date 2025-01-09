@@ -12,9 +12,12 @@ def main():
 
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period)
-    # print(stock_data['Close'])
 
     # calculates average price
+    data_avrg = dd.calculate_and_display_average_price(stock_data)
+    print(f'Среднее значение цены закрытия для {ticker} за {period} составляет {data_avrg:.2f}')
+
+
     # Add moving average to the data
     stock_data = dd.add_moving_average(stock_data)
 
