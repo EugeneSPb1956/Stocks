@@ -17,6 +17,9 @@ def main():
     data_avrg = dd.calculate_and_display_average_price(stock_data)
     print(f'Среднее значение цены закрытия для {ticker} за {period} составляет {data_avrg:.2f}')
 
+    # Оценка размаха колебаниий акций
+    # Порог - 10%
+    dd.notify_if_strong_fluctuations(stock_data, 10.0)
 
     # Add moving average to the data
     stock_data = dd.add_moving_average(stock_data)

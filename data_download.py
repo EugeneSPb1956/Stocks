@@ -23,3 +23,18 @@ def calculate_and_display_average_price(data):
     """Вычисляет и выводит среднюю цену закрытия акций за заданный период."""
     data_avr = data['Close'].mean()
     return data_avr
+
+
+def notify_if_strong_fluctuations(data, threshold):
+    """
+    Вычисляет максимальное и минимальное значения цены закрытия и сравнивает разницу с заданным порогом.
+    Если разница превышает порог, пользователь получает уведомление.
+    """
+    data_close = data['Close']
+
+    close_max = max(data_close)
+    close_min = min(data_close)
+
+    volatility = (close_max - close_min) / close_min * 100
+    if volatility > threshold:
+        print(f'Внимание. Волатильность {volatility:.1f}% для данного инструмента превысила порог в {threshold:.1f}%')
