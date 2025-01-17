@@ -1,4 +1,6 @@
 import yfinance as yf
+import csv
+import pandas as pd
 
 
 def fetch_stock_data(ticker, period='1mo'):
@@ -38,3 +40,11 @@ def notify_if_strong_fluctuations(data, threshold):
     volatility = (close_max - close_min) / close_min * 100
     if volatility > threshold:
         print(f'Внимание. Волатильность {volatility:.1f}% для данного инструмента превысила порог в {threshold:.1f}%')
+
+def export_data_to_csv(data, filename):
+    """Позволяет сохранять загруженные данные об акциях в CSV файл"""
+    with open(filename, 'w', newline='') as out_csv:
+        writer = csv.writer(out_csv, delimiter=',')
+        df = pd.DataFrame(data)
+        print(df)
+        df.to_csv(filename)

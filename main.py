@@ -1,6 +1,6 @@
 import data_download as dd
 import data_plotting as dplt
-
+from datetime import datetime  # для генерирования имени csv файла
 
 def main():
     print("Добро пожаловать в инструмент получения и построения графиков биржевых данных.")
@@ -9,9 +9,18 @@ def main():
 
     ticker = input("Введите тикер акции (например, «AAPL» для Apple Inc):»")
     period = input("Введите период для данных (например, '1mo' для одного месяца): ")
+    csv_filename_choice = True  # True - filename генерируется автоматически; False - filename задается пользователем
 
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period)
+
+    # Сохраняет данные в CSV файл
+    if csv_filename_choice:  # Выбор способа задания имени csv файла
+        csv_file = ticker + '_' + period + '_' + datetime.now().strftime('%Y%m%d_%H%M') + '.csv'
+        # Пример: 'AAPL_1mo_20241206_1921.csv'
+    else:
+        csv_file = input('Введите имя файла без расширения: ') + '.csv'  # (требуется проверка ввода)
+    dd.export_data_to_csv(stock_data, csv_file)
 
     # calculates average price
     data_avrg = dd.calculate_and_display_average_price(stock_data)
