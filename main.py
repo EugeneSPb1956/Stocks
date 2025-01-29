@@ -2,6 +2,7 @@ import data_download as dd
 import data_plotting as dplt
 from datetime import datetime  # для генерирования имени csv файла
 
+
 def main():
     print("Добро пожаловать в инструмент получения и построения графиков биржевых данных.")
     print("Вот несколько примеров биржевых тикеров, которые вы можете рассмотреть: AAPL (Apple Inc), GOOGL (Alphabet Inc), MSFT (Microsoft Corporation), AMZN (Amazon.com Inc), TSLA (Tesla Inc).")
@@ -35,6 +36,16 @@ def main():
 
     # Plot the data
     dplt.create_and_save_plot(stock_data, ticker, period)
+
+    # Расчет и создание индикатора RSI
+    rsi_data = dd.calculate_rsi(stock_data)
+    # Визуализация RSI
+    dplt.plot_rsi(rsi_data, ticker)
+
+    # Расчет и создание индикатора MACD
+    macd_data = dd.calculate_macd(stock_data)
+    # Визуализация MACD
+    dplt.plot_macd(macd_data, ticker)
 
 
 if __name__ == "__main__":
