@@ -24,15 +24,21 @@ def main():
 
     # Сохраняет данные в CSV файл
     if csv_filename_choice:  # Выбор способа задания имени csv файла
-        csv_file = ticker + '_' + period + '_' + datetime.now().strftime('%Y%m%d_%H%M') + '.csv'
-        # Пример: 'AAPL_1mo_20241206_1921.csv'
+        if period == ' ':
+            csv_file = ticker + '_' + datetime.now().strftime('%Y%m%d_%H%M') + '.csv'
+        else:
+            csv_file = ticker + '_' + period + '_' + datetime.now().strftime('%Y%m%d_%H%M') + '.csv'
+        # Пример: 'AAPL_1mo_20241206_1921.csv' или 'AAPL_20241206_1921.csv'
     else:
         csv_file = input('Введите имя файла без расширения: ') + '.csv'  # (требуется проверка ввода)
     dd.export_data_to_csv(stock_data, csv_file)
 
     # calculates average price
     data_avrg = dd.calculate_and_display_average_price(stock_data)
-    print(f'Среднее значение цены закрытия для {ticker} за {period} составляет {data_avrg:.2f}')
+    if period == ' ':
+        print(f'Среднее значение цены закрытия для {ticker} за промежуток времени с {start} по {end} составляет {data_avrg:.2f}')
+    else:
+        print(f'Среднее значение цены закрытия для {ticker} за {period} составляет {data_avrg:.2f}')
 
     # Оценка размаха колебаниий акций
     # Порог - 10%
