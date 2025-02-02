@@ -5,13 +5,17 @@ import copy
 import pandas_ta as ta
 
 
-def fetch_stock_data(ticker, period='1mo'):
+def fetch_stock_data(ticker, period='1mo', start='', end=''):
     """
     Получает исторические данные об акциях для указанного тикера и временного периода.
     Возвращает DataFrame с данными.
     """
     stock = yf.Ticker(ticker)
-    data = stock.history(period=period)
+
+    if period == ' ':
+        data = stock.history(start=start, end=end)
+    else:
+        data = stock.history(period=period)
     return data
 
 
